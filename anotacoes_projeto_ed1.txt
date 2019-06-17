@@ -1,0 +1,3 @@
+
+
+--- Como preencher os dados do funcionário através de um função sem ter que preenche-los no main.
