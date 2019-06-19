@@ -60,15 +60,19 @@ int listaVazia(Lista *li){
 
 FUNC preenche_funcionario(){
     FUNC f;
-    printf("\nDigite o id do funcionario: ");
+    printf("\nDigite o ID do funcionario: ");
     scanf("%d",&f.id);
     getchar();
     printf("Digite o nome do funcionario: ");
     fgets(f.nome, 29, stdin);
+    printf("Digite o endereco do funcionario: ");
+    fgets(f.endereco, 99, stdin);
     printf("Digite a idade do funcionario: ");
     scanf("%d",&f.idade);
     printf("Digite o salario do funcionario: ");
     scanf("%f",&f.salario);
+    printf("Digite o cargo do funcionario: ");
+    scanf("%d",&f.cargo);
     return f;
 }
 
@@ -110,6 +114,45 @@ int insere_funcionario_orden(Lista *li, FUNC func){
 }
 
 
+// Exibe as informações do funcionario após fazer a consulta
+int exibe_funcionario(FUNC f, int id){
+
+    //Verifica se o ID digitado existe na lista
+    if(id != f.id){
+        printf("\nFuncionário inexistente!");
+        return 0;
+    } else {
+
+        printf("\n\nInformações do Funcionario: \n");
+        printf("\n\tID: %d",f.id);
+        printf("\n\tNome: %s",f.nome);
+        printf("\tEndereço: %s",f.endereco);
+        printf("\tIdade: %d",f.idade);
+        printf("\n\tSalario: %.2f",f.salario);
+        printf("\n\tCargo: %d",f.cargo);
+    }
+}
+
+int confirma_remocao_funcionario(li, id){
+    int remover=0,x;
+    printf("\n\nTem certeza que deseja remover este funcionario?\n\n");
+    printf("\t1 - Sim \n");
+    printf("\t2 - Não \n");
+    printf("Escolha uma opção: ");
+    scanf("%d",&remover);
+
+    if(remover==1){
+        x = remove_funcionario_id(li, id);
+        if(x){
+            printf("\nFuncionário removido com sucesso!");
+        }else{
+            printf("\nNao foi possivel remover o funcionário");
+        }
+    }
+
+}
+
+
 int remove_funcionario_id(Lista *li, int id_func){
     if(li == NULL){
         return 0;
@@ -127,7 +170,7 @@ int remove_funcionario_id(Lista *li, int id_func){
     }else{
         ant->prox = no->prox;
     }
-    free(no);
+    libera_lista(li);
     return 1;
 }
 
@@ -150,7 +193,7 @@ int consulta_funcionarios_orden(Lista *li, int posicao, FUNC *al){
 }
 
 
-int consulta_funcionario_id(Lista *li, int id, FUNC *al){
+int consulta_funcionario_id(Lista *li, int id, FUNC *func){
     if(li == NULL){
         return 0;
     }
@@ -161,7 +204,7 @@ int consulta_funcionario_id(Lista *li, int id, FUNC *al){
     if(no == NULL){
         return 0;
     }else{
-        *al = no->dados;
+        *func = no->dados;
         return 1;
     }
 }
