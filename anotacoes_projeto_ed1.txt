@@ -1,3 +1,5 @@
 
 
---- Como preencher os dados do funcionário através de um função sem ter que preenche-los no main.
+-Como preencher os dados do funcionário através de um função sem ter que preenche-los no main.
+
+-Quando devo dar um FREE na lista

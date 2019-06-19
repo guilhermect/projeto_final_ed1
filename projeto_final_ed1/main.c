@@ -21,6 +21,8 @@ int main()
         printf("\n\nEscolha uma opcao do menu:\n\n");
         printf("\t1 - Inserir funcionario \n");
         printf("\t2 - Excluir funcionario \n");
+        printf("\t3 - Editar funcionario \n");
+        printf("\t4 - Exibir funcionarios \n");
         printf("\t0 - Sair da aplicação \n");
         printf("\n\tOpcao:  ");
         scanf("%d", &opc_menu);
@@ -51,52 +53,34 @@ int main()
                 consulta_funcionario_id(li, id, &func);
 
                 //Caso o funcionario com o ID digitado exista ocorre a confirmação, caso contrario exibe a msg "Funcionario inexistente"
-                x = exibe_funcionario(func,id);
+                x = exibe_funcionario_id(func,id);
                 if(x){
                     // Função que confirma a remoção do funcionario
                     confirma_remocao_funcionario(li, id);
                 }
                 break;
 
+            case 3:
+
+                break;
+
+            case 4:
+                printf("\n\n\t---------- LISTA DE FUNCIONÁRIOS ----------");
+
+                x =tamLista(li);
+                for(int i=1; i<=x; i++){
+                    consulta_funcionarios_orden(li, i, &func);
+                    printf("\n\n\tFuncionario %d: \n",i);
+                    // Exibe as informações do funcionario ordenadamente após fazer a consulta
+                    exibe_funcionario_orden(func);
+                    printf("\n\n\t---------------------------------------------");
+                }
+                break;
+
+
         }
     }
 
-    /*
 
-
-    x = tamLista(li);
-    printf("O tamanho da lista eh: %d ",x);
-
-    if(listaCheia(li)){
-        printf("\nLista esta cheia!\n");
-    }else{
-        printf("\nLista esta vazia! \n");
-    }
-
-    if(listaVazia(li)){
-        printf("\nLista esta vazia");
-    }else{
-        printf("\nLista nao esta vazia!");
-    }
-
-
-
-
-
-    x = consulta_funcionarios_orden(li, posicao, &al);
-    printf("\n\nConteudo na posicao %d: ", posicao);
-    printf("\n%d",al.id);
-    printf("\n%.2f",al.n1);
-    printf("\n%.2f",al.n2);
-    printf("\n%.2f",al.n3);
-
-    x = consulta_funcionario_id(li, id, &al);
-    printf("\n\nid encontrada na posicao %d: ", posicao);
-    printf("\n%d",al.id);
-    printf("\n%.2f",al.n1);
-    printf("\n%.2f",al.n2);
-    printf("\n%.2f",al.n3);
-
-    libera_lista(li);*/
 
 }

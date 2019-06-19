@@ -115,7 +115,7 @@ int insere_funcionario_orden(Lista *li, FUNC func){
 
 
 // Exibe as informações do funcionario após fazer a consulta
-int exibe_funcionario(FUNC f, int id){
+int exibe_funcionario_id(FUNC f, int id){
 
     //Verifica se o ID digitado existe na lista
     if(id != f.id){
@@ -172,6 +172,15 @@ int remove_funcionario_id(Lista *li, int id_func){
     }
     libera_lista(li);
     return 1;
+}
+
+
+// Exibe as informações do funcionario ordenadamente após fazer a consulta
+int exibe_funcionario_orden(FUNC f){
+    printf("\n\tID: %d",f.id);
+    printf("\n\tNome: %s",f.nome);
+    printf("\tSalario: %.2f",f.salario);
+    printf("\n\tCargo: %d",f.cargo);
 }
 
 int consulta_funcionarios_orden(Lista *li, int posicao, FUNC *al){

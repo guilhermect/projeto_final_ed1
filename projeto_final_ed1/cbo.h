@@ -25,12 +25,15 @@ FUNC preenche_funcionario();
 int insere_funcionario_orden(Lista *li, FUNC func);
 
 // Exibe as informações do funcionario após fazer a consulta
-int exibe_funcionario();
+int exibe_funcionario_id(FUNC f, int id);
 
 // Função que confirma a remoção do funcionario
 int confirma_remocao_funcionario();
 
 int remove_funcionario_id(Lista *li, int id_func);
+
+// Exibe as informações do funcionario ordenadamente após fazer a consulta
+int exibe_funcionario_orden(FUNC f);
 
 int consulta_funcionarios_orden(Lista *li, int posicao, FUNC *al);
 
