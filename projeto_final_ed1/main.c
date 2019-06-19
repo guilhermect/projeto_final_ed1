@@ -30,10 +30,7 @@ int main()
                 libera_lista(li);
                 break;
             case 1:
-                func.id = 100;
-                func.n1 = 5.3;
-                func.n2 = 6.9;
-                func.n3 = 7.4;
+                preenche_funcionario();
                 x = insere_funcionario_orden(li,func);
                 if(x){
                     printf("\nInserido ordenadamente com sucesso!");

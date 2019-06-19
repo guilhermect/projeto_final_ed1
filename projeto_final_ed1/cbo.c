@@ -4,7 +4,7 @@
 #include "cbo.h"
 
 struct elemento{
-    funcionario dados;
+    FUNC dados;
     struct elemento *prox;
 };
 
@@ -58,8 +58,21 @@ int listaVazia(Lista *li){
     return 0;
 }
 
+FUNC preenche_funcionario(){
+    FUNC f;
+    printf("\nDigite o id do funcionario: ");
+    scanf("%d",&f.id);
+    getchar();
+    printf("Digite o nome do funcionario: ");
+    fgets(f.nome, 29, stdin);
+    printf("Digite a idade do funcionario: ");
+    scanf("%d",&f.idade);
+    printf("Digite o salario do funcionario: ");
+    scanf("%f",&f.salario);
+    return f;
+}
 
-int insere_funcionario_orden(Lista *li, funcionario func){
+int insere_funcionario_orden(Lista *li, FUNC func){
     if(li == NULL){
         return 0;
     }
@@ -118,7 +131,7 @@ int remove_funcionario_id(Lista *li, int id_func){
     return 1;
 }
 
-int consulta_funcionarios_orden(Lista *li, int posicao, funcionario *al){
+int consulta_funcionarios_orden(Lista *li, int posicao, FUNC *al){
     if(li == NULL || posicao <= 0){
         return 0;
     }
@@ -137,7 +150,7 @@ int consulta_funcionarios_orden(Lista *li, int posicao, funcionario *al){
 }
 
 
-int consulta_funcionario_id(Lista *li, int id, funcionario *al){
+int consulta_funcionario_id(Lista *li, int id, FUNC *al){
     if(li == NULL){
         return 0;
     }
