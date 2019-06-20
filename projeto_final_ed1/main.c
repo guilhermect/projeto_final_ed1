@@ -97,12 +97,19 @@ int main()
 
                 switch(opc_menu_editar){
                     case 1:
-                        printf("1");
+                        //Deleta o funcionario e insere na mesma posicao com o mesmo ID com as novas informações
+                        remove_funcionario_id(li, id);
+                        func = edita_funcionario(id);
+                        x = insere_funcionario_orden(li,func);
+                        if(x){
+                            printf("\n\nFuncionario atualizado com sucesso!");
+                        }else{
+                            printf("\nNao foi possivel atualizar o funcionario!");
+                        }
                         break;
                     case 2:
                         consulta_funcionario_id(li, id, &func);
                         reajustar_salario(&func.salario);
-
                     case 3:
                         //Consulta as informações do funcionario
                         consulta_funcionario_id(li, id, &func);

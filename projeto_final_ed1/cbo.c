@@ -59,18 +59,38 @@ int listaVazia(Lista *li){
 }
 
 
-int consulta_lista_cbo(int cod_cargo){
-    int codigos[15]={};
-
+int coleta_cargo_cbo(){
+    int codigo, codigos[15]={};
+    char texto[20], cargo[20];
+    int cod_cargo;
     FILE *f;
+
+    printf("\n---------------- Lista de Cargos ----------------\n\n");
+    printf("\t1 - Neurocirurgião \n");
+    printf("\t2 - Chaveiro \n");
+    printf("\t3 - Compositor \n");
+    printf("\t4 - Advogado \n");
+    printf("\t5 - Agrônomo \n");
+    printf("\t6 - Economista \n");
+    printf("\t7 - Encanador \n");
+    printf("\t8 - Jardineiro \n");
+    printf("\t9 - Joalheiro \n");
+    printf("\t10 - Massagista \n");
+    printf("\t11 - Matemático \n");
+    printf("\t12 - Nutricionista \n");
+    printf("\t13 - Padeiro \n");
+    printf("\t14 - Radiologista \n");
+    printf("\t15 - Urbanista \n");
+
+    printf("\n\tDigite o cargo do funcionario:  ");
+    scanf("%d",&cod_cargo);
+
     f = fopen("lista_cbo.txt", "r");
     if(f == NULL){
         printf("Erro na abertura!\n");
         system("pause");
         exit(1);
     }
-    char texto[20], cargo[20];
-    int codigo;
 
     for(int i=0; i<15;i++){
 
@@ -102,27 +122,9 @@ FUNC preenche_funcionario(){
     scanf("%d",&f.idade);
     printf("Digite o salario do funcionario: ");
     scanf("%f",&f.salario);
-
-    printf("\n---------------- Lista de Cargos ----------------\n\n");
-    printf("\t1 - Neurocirurgião \n");
-    printf("\t2 - Chaveiro \n");
-    printf("\t3 - Compositor \n");
-    printf("\t4 - Advogado \n");
-    printf("\t5 - Agrônomo \n");
-    printf("\t6 - Economista \n");
-    printf("\t7 - Encanador \n");
-    printf("\t8 - Jardineiro \n");
-    printf("\t9 - Joalheiro \n");
-    printf("\t10 - Massagista \n");
-    printf("\t11 - Matemático \n");
-    printf("\t12 - Nutricionista \n");
-    printf("\t13 - Padeiro \n");
-    printf("\t14 - Radiologista \n");
-    printf("\t15 - Urbanista \n");
-
-    printf("\n\tDigite o cargo do funcionario:  ");
-    scanf("%d",&cod_cargo);
-    f.cargo=consulta_lista_cbo(cod_cargo);
+    //Coleta codigo do cargo escolhido atraves de uma função de lê o arquivo txt,
+    //pega somente o codigo do cargo e grava no campo 'cargo'
+    f.cargo=coleta_cargo_cbo();
     printf("\n\n");
     return f;
 }
@@ -269,10 +271,34 @@ int consulta_funcionario_id(Lista *li, int id, FUNC *func){
 }
 
 
-int reajustar_salario(float *sal){
+void reajustar_salario(float *sal){
     //printf("Digite o novo salario: ");
     //scanf("%f",&f.salario);
-    *sal=1500.00;
+    *sal=*sal=1500;
 }
+
+// Preenche as novas informaçoes do funcionario sem alteração do ID
+FUNC edita_funcionario(int id){
+    FUNC f;
+    int cod_cargo,x;
+
+    f.id=id;
+    getchar();
+    printf("\tDigite o nome do funcionario: ");
+    fgets(f.nome, 29, stdin);
+    printf("\tDigite o endereco do funcionario: ");
+    fgets(f.endereco, 99, stdin);
+    printf("\tDigite a idade do funcionario: ");
+    scanf("%d",&f.idade);
+    printf("\tDigite o salario do funcionario: ");
+    scanf("%f",&f.salario);
+    //Coleta codigo do cargo escolhido atraves de uma função de lê o arquivo txt,
+    //pega somente o codigo do cargo e grava no campo 'cargo'
+    f.cargo=coleta_cargo_cbo();
+    printf("\n\n");
+    return f;
+}
+
+
 
 

@@ -19,7 +19,7 @@ int listaCheia(Lista *li);
 
 int listaVazia(Lista *li);
 
-int consulta_lista_cbo(int cod_cargo);
+int coleta_cargo_cbo();
 
 // Coleta as informações do funcionario
 FUNC preenche_funcionario();
@@ -41,6 +41,9 @@ int consulta_funcionarios_orden(Lista *li, int posicao, FUNC *al);
 
 int consulta_funcionario_id(Lista *li, int id, FUNC *al);
 
-int reajustar_salario(float *sal);
+void reajustar_salario(float *sal);
+
+// Preenche as novas informaçoes do funcionario sem alteração do ID
+FUNC edita_funcionario(id);
 
 
