@@ -94,9 +94,8 @@ int coleta_cargo_cbo(){
 
     for(int i=0; i<15;i++){
 
-        fscanf(f, "%s %s", texto, cargo);
+        //fscanf(f, "%s %s", texto, cargo);
         fscanf(f, "%s %d", texto, &codigo);
-
         codigos[i]=codigo;
     }
 
@@ -271,10 +270,26 @@ int consulta_funcionario_id(Lista *li, int id, FUNC *func){
 }
 
 
-void reajustar_salario(float *sal){
-    //printf("Digite o novo salario: ");
-    //scanf("%f",&f.salario);
-    *sal=*sal=1500;
+FUNC reajustar_salario(int id, char nome[50], char endereco[100], int idade, int cargo){
+    FUNC f;
+    int cod_cargo,x;
+    int porc;//Valor da porcentagem para reajuste escolhida pelo usuario
+    float porcentagem;
+
+    f.id=id;
+    strcpy(f.nome, nome);
+    strcpy(f.endereco, endereco);
+    f.idade=idade;
+    f.cargo=cargo;
+
+    printf("\tDigite a porcentagem de reajuste do salario do funcionario: ");
+    scanf("%d",&porc);
+
+    porcentagem = f.salario*((float)porc/100);
+    f.salario = f.salario + porcentagem;
+
+    printf("\n\n");
+    return f;
 }
 
 // Preenche as novas informaçoes do funcionario sem alteração do ID
@@ -285,7 +300,7 @@ FUNC edita_funcionario(int id){
     f.id=id;
     getchar();
     printf("\tDigite o nome do funcionario: ");
-    fgets(f.nome, 29, stdin);
+    fgets(f.nome, 49, stdin);
     printf("\tDigite o endereco do funcionario: ");
     fgets(f.endereco, 99, stdin);
     printf("\tDigite a idade do funcionario: ");

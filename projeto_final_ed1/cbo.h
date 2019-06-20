@@ -41,9 +41,9 @@ int consulta_funcionarios_orden(Lista *li, int posicao, FUNC *al);
 
 int consulta_funcionario_id(Lista *li, int id, FUNC *al);
 
-void reajustar_salario(float *sal);
+FUNC reajustar_salario(int id, char nome[50], char endereco[100], int idade, int cargo);
 
 // Preenche as novas informaçoes do funcionario sem alteração do ID
-FUNC edita_funcionario(id);
+FUNC edita_funcionario(int id);
 
 

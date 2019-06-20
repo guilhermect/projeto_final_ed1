@@ -4,3 +4,4 @@
 
 -Quando devo dar um FREE na lista
 
+- Como calcular uma porcentagem utilizando INT e FLOAT

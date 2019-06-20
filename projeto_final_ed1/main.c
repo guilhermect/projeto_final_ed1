@@ -108,8 +108,17 @@ int main()
                         }
                         break;
                     case 2:
-                        consulta_funcionario_id(li, id, &func);
-                        reajustar_salario(&func.salario);
+                        //Deleta o funcionario e insere na mesma posicao com o mesmo ID com o novo salario
+                        remove_funcionario_id(li, id);
+                        // Reajusta o salario a partir da porcentagem digitada pelo usuario
+                        func = reajustar_salario(id, func.nome, func.endereco, func.idade, func.cargo);
+                        x = insere_funcionario_orden(li,func);
+                        if(x){
+                            printf("\n\nSalario do funcionario reajustado com sucesso!");
+                        }else{
+                            printf("\nNão foi possivel reajusta o  salario do funcionario!");
+                        }
+
                     case 3:
                         //Consulta as informações do funcionario
                         consulta_funcionario_id(li, id, &func);
