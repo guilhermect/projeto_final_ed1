@@ -58,8 +58,39 @@ int listaVazia(Lista *li){
     return 0;
 }
 
+
+int consulta_lista_cbo(int cod_cargo){
+    int codigos[15]={};
+
+    FILE *f;
+    f = fopen("lista_cbo.txt", "r");
+    if(f == NULL){
+        printf("Erro na abertura!\n");
+        system("pause");
+        exit(1);
+    }
+    char texto[20], cargo[20];
+    int codigo;
+
+    for(int i=0; i<15;i++){
+
+        fscanf(f, "%s %s", texto, cargo);
+        fscanf(f, "%s %d", texto, &codigo);
+
+        codigos[i]=codigo;
+    }
+
+    fclose(f);
+    //Aqui eu subtraio o cod_cargo por 1 pois o 'for' vai de 0 a 14
+    //para pegar corretamente os codigos, assim subtraindo o valor
+    //escolhido atraves do menu por 1 ele será igual a posicao no vetor
+    return codigos[cod_cargo-1];
+}
+
 FUNC preenche_funcionario(){
     FUNC f;
+    int cod_cargo,x;
+
     printf("\nDigite o ID do funcionario: ");
     scanf("%d",&f.id);
     getchar();
@@ -71,8 +102,28 @@ FUNC preenche_funcionario(){
     scanf("%d",&f.idade);
     printf("Digite o salario do funcionario: ");
     scanf("%f",&f.salario);
-    printf("Digite o cargo do funcionario: ");
-    scanf("%d",&f.cargo);
+
+    printf("\n---------------- Lista de Cargos ----------------\n\n");
+    printf("\t1 - Neurocirurgião \n");
+    printf("\t2 - Chaveiro \n");
+    printf("\t3 - Compositor \n");
+    printf("\t4 - Advogado \n");
+    printf("\t5 - Agrônomo \n");
+    printf("\t6 - Economista \n");
+    printf("\t7 - Encanador \n");
+    printf("\t8 - Jardineiro \n");
+    printf("\t9 - Joalheiro \n");
+    printf("\t10 - Massagista \n");
+    printf("\t11 - Matemático \n");
+    printf("\t12 - Nutricionista \n");
+    printf("\t13 - Padeiro \n");
+    printf("\t14 - Radiologista \n");
+    printf("\t15 - Urbanista \n");
+
+    printf("\n\tDigite o cargo do funcionario:  ");
+    scanf("%d",&cod_cargo);
+    f.cargo=consulta_lista_cbo(cod_cargo);
+    printf("\n\n");
     return f;
 }
 
@@ -116,7 +167,6 @@ int insere_funcionario_orden(Lista *li, FUNC func){
 
 // Exibe as informações do funcionario após fazer a consulta
 int exibe_funcionario_id(FUNC f, int id){
-
     //Verifica se o ID digitado existe na lista
     if(id != f.id){
         printf("\nFuncionário inexistente!");
@@ -170,7 +220,7 @@ int remove_funcionario_id(Lista *li, int id_func){
     }else{
         ant->prox = no->prox;
     }
-    libera_lista(li);
+    //free(li);
     return 1;
 }
 
@@ -183,7 +233,7 @@ int exibe_funcionario_orden(FUNC f){
     printf("\n\tCargo: %d",f.cargo);
 }
 
-int consulta_funcionarios_orden(Lista *li, int posicao, FUNC *al){
+int consulta_funcionarios_orden(Lista *li, int posicao, FUNC *func){
     if(li == NULL || posicao <= 0){
         return 0;
     }
@@ -196,7 +246,7 @@ int consulta_funcionarios_orden(Lista *li, int posicao, FUNC *al){
     if (no == NULL){
         return 0;
     }else{
-        *al = no->dados;
+        *func = no->dados;
         return 1;
     }
 }
@@ -217,4 +267,12 @@ int consulta_funcionario_id(Lista *li, int id, FUNC *func){
         return 1;
     }
 }
+
+
+int reajustar_salario(float *sal){
+    //printf("Digite o novo salario: ");
+    //scanf("%f",&f.salario);
+    *sal=1500.00;
+}
+
 

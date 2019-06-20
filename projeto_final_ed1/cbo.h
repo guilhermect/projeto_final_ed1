@@ -1,6 +1,6 @@
 typedef struct funcionario{
     int id;
-    char nome[30];
+    char nome[50];
     char endereco[100];
     int idade;
     float salario;
@@ -18,6 +18,8 @@ int tamLista(Lista *li);
 int listaCheia(Lista *li);
 
 int listaVazia(Lista *li);
+
+int consulta_lista_cbo(int cod_cargo);
 
 // Coleta as informações do funcionario
 FUNC preenche_funcionario();
@@ -38,4 +40,7 @@ int exibe_funcionario_orden(FUNC f);
 int consulta_funcionarios_orden(Lista *li, int posicao, FUNC *al);
 
 int consulta_funcionario_id(Lista *li, int id, FUNC *al);
+
+int reajustar_salario(float *sal);
+
 

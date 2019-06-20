@@ -1,0 +1,44 @@
+Cargo: Neurocirurgião
+Codigo: 225260
+
+Cargo: Chaveiro
+Codigo: 523115
+
+Cargo: Compositor
+Codigo: 262605
+
+Cargo: Advogado
+Codigo: 241005
+
+Cargo: Agrônomo
+Codigo: 222110
+
+Cargo: Economista
+Codigo: 251205
+
+Cargo: Encanador
+Codigo: 724110
+
+Cargo: Jardineiro
+Codigo: 622010
+
+Cargo: Joalheiro
+Codigo: 751010
+
+Cargo: Massagista
+Codigo: 322120
+
+Cargo: Matemático
+Codigo: 211115
+
+Cargo: Nutricionista
+Codigo: 223710
+
+Cargo: Padeiro
+Codigo: 848305
+
+Cargo: Radiologista
+Codigo: 225320
+
+Cargo: Urbanista
+Codigo: 214130

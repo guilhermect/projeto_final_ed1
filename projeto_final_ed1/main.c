@@ -1,8 +1,8 @@
 //main
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
 #include "cbo.h"
 
 int main()
@@ -11,19 +11,22 @@ int main()
 
     Lista *li;
     int x,id;
-    struct funcionario func, dados_funcionario;
+    struct funcionario func;
+    struct funcionario dados_funcionario;
     int opc_menu=1; //Variavel declarada com o valor 1 pois a aplicacao rodara enquanto ela for diferente de 0.
+    int opc_menu_editar=0; //Variavel que recebe as opcoes do menu de edição do funcionário
 
     li = criaLista();
 
     while(opc_menu!=0){
 
         printf("\n\nEscolha uma opcao do menu:\n\n");
+        printf("\t0 - Sair da aplicação \n");
         printf("\t1 - Inserir funcionario \n");
         printf("\t2 - Excluir funcionario \n");
-        printf("\t3 - Editar funcionario \n");
-        printf("\t4 - Exibir funcionarios \n");
-        printf("\t0 - Sair da aplicação \n");
+        printf("\t3 - Exibir funcionarios ordenadamente por ID \n");
+        printf("\t4 - Editar funcionario \n");
+
         printf("\n\tOpcao:  ");
         scanf("%d", &opc_menu);
         printf("\n\n");
@@ -43,13 +46,14 @@ int main()
                     printf("\nNao foi possivel inserir o funcionario!");
                 }
 
+
                 break;
 
             case 2:
                 printf("Digite o ID do funcionario a ser excluido: ");
                 scanf("%d",&id);
 
-                //Exibe as informações do funcionario antes de excluir
+                //Consulta as informações do funcionario antes de excluir
                 consulta_funcionario_id(li, id, &func);
 
                 //Caso o funcionario com o ID digitado exista ocorre a confirmação, caso contrario exibe a msg "Funcionario inexistente"
@@ -61,13 +65,10 @@ int main()
                 break;
 
             case 3:
-
-                break;
-
-            case 4:
                 printf("\n\n\t---------- LISTA DE FUNCIONÁRIOS ----------");
 
                 x =tamLista(li);
+                //printf("%d",x);
                 for(int i=1; i<=x; i++){
                     consulta_funcionarios_orden(li, i, &func);
                     printf("\n\n\tFuncionario %d: \n",i);
@@ -75,12 +76,48 @@ int main()
                     exibe_funcionario_orden(func);
                     printf("\n\n\t---------------------------------------------");
                 }
+
+                break;
+
+            case 4:
+                printf("Digite o ID do funcionario a ser editado: ");
+                scanf("%d",&id);
+
+                //Consulta as informações do funcionario que será editado
+                consulta_funcionario_id(li, id, &func);
+                //Caso o funcionario com o ID digitado exista ocorre a confirmação, caso contrario exibe a msg "Funcionario inexistente"
+                exibe_funcionario_id(func,id);
+
+                printf("\n\nEscolha uma opção:\n\n");
+                printf("\n\t1 - Editar informações \n");
+                printf("\t2 - Reajustar salario \n");
+                printf("\t3 - Somente visualizar dados \n");
+                printf("\n\tOpcao:  ");
+                scanf("%d", &opc_menu_editar);
+
+                switch(opc_menu_editar){
+                    case 1:
+                        printf("1");
+                        break;
+                    case 2:
+                        consulta_funcionario_id(li, id, &func);
+                        reajustar_salario(&func.salario);
+
+                    case 3:
+                        //Consulta as informações do funcionario
+                        consulta_funcionario_id(li, id, &func);
+                        //Caso o funcionario com o ID digitado exista ocorre a confirmação, caso contrario exibe a msg "Funcionario inexistente"
+                        exibe_funcionario_id(func,id);
+                        break;
+                }
+
+
+
                 break;
 
 
         }
     }
-
 
 
 }

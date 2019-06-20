@@ -1,14 +1,15 @@
 # depslib dependency file v1.0
-1560983474 source:/home/guilherme/projeto_final_ed1/projeto_final_ed1/cbo.c
+1561005626 source:/home/guilherme/projeto_final_ed1/projeto_final_ed1/cbo.c
 	<stdio.h>
 	<stdlib.h>
 	"cbo.h"
 
-1560983435 /home/guilherme/projeto_final_ed1/projeto_final_ed1/cbo.h
+1561016874 /home/guilherme/projeto_final_ed1/projeto_final_ed1/cbo.h
 
-1560983270 source:/home/guilherme/projeto_final_ed1/projeto_final_ed1/main.c
+1561009671 source:/home/guilherme/projeto_final_ed1/projeto_final_ed1/main.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
+	<string.h>
 	"cbo.h"
 
