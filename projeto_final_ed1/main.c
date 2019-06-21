@@ -34,6 +34,7 @@ int main()
         switch(opc_menu){
             case 0:
                 printf("\nObrigado por utilizar a aplicação!\n\n");
+                // Gera arquivo txt com todos os funcionarios e suas informações ao encerrar o programa
                 cria_arquivo_funcionarios(li);
                 libera_lista(li);
                 break;
@@ -112,7 +113,7 @@ int main()
                         //Deleta o funcionario e insere na mesma posicao com o mesmo ID com o novo salario
                         remove_funcionario_id(li, id);
                         // Reajusta o salario a partir da porcentagem digitada pelo usuario
-                        func = reajustar_salario(id, func.nome, func.endereco, func.idade, func.cargo);
+                        func = reajustar_salario(id, func.nome, func.endereco, func.idade, func.salario, func.cargo);
                         x = insere_funcionario_orden(li,func);
                         if(x){
                             printf("\n\nSalario do funcionario reajustado com sucesso!");

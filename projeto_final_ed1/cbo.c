@@ -119,7 +119,7 @@ FUNC preenche_funcionario(){
     fgets(f.endereco, 99, stdin);
     printf("Digite a idade do funcionario: ");
     scanf("%d",&f.idade);
-    printf("Digite o salario do funcionario: ");
+    printf("Digite o salario do funcionario: R$");
     scanf("%f",&f.salario);
     //Coleta codigo do cargo escolhido atraves de uma função de lê o arquivo txt,
     //pega somente o codigo do cargo e grava no campo 'cargo'
@@ -179,7 +179,7 @@ int exibe_funcionario_id(FUNC f, int id){
         printf("\n\tNome: %s",f.nome);
         printf("\tEndereço: %s",f.endereco);
         printf("\tIdade: %d",f.idade);
-        printf("\n\tSalario: %.2f",f.salario);
+        printf("\n\tSalario: R$%.2f",f.salario);
         printf("\n\tCargo: %d",f.cargo);
     }
 }
@@ -230,7 +230,7 @@ int remove_funcionario_id(Lista *li, int id_func){
 int exibe_funcionario_orden(FUNC f){
     printf("\n\tID: %d",f.id);
     printf("\n\tNome: %s",f.nome);
-    printf("\tSalario: %.2f",f.salario);
+    printf("\tSalario: R$%.2f",f.salario);
     printf("\n\tCargo: %d",f.cargo);
 }
 
@@ -270,7 +270,7 @@ int consulta_funcionario_id(Lista *li, int id, FUNC *func){
 }
 
 
-FUNC reajustar_salario(int id, char nome[50], char endereco[100], int idade, int cargo){
+FUNC reajustar_salario(int id, char nome[50], char endereco[100], int idade, float salario, int cargo){
     FUNC f;
     int cod_cargo,x;
     float porc;//Valor da porcentagem para reajuste escolhida pelo usuario
@@ -283,10 +283,10 @@ FUNC reajustar_salario(int id, char nome[50], char endereco[100], int idade, int
     f.cargo=cargo;
 
     printf("\tDigite a porcentagem de reajuste do salario do funcionario: ");
-    scanf("%d",&porc);
+    scanf("%f",&porc);
 
     //porcentagem = f.salario*((float)porc/100);
-    f.salario = porc;
+    f.salario = salario + (salario * (porc/100.0));
 
     printf("\n\n");
     return f;
@@ -305,7 +305,7 @@ FUNC edita_funcionario(int id){
     fgets(f.endereco, 99, stdin);
     printf("\tDigite a idade do funcionario: ");
     scanf("%d",&f.idade);
-    printf("\tDigite o salario do funcionario: ");
+    printf("\tDigite o salario do funcionario: R$");
     scanf("%f",&f.salario);
     //Coleta codigo do cargo escolhido atraves de uma função de lê o arquivo txt,
     //pega somente o codigo do cargo e grava no campo 'cargo'
@@ -336,7 +336,7 @@ int cria_arquivo_funcionarios(Lista *li){
         fprintf(file, "\tNome: %s", func.nome);
         fprintf(file, "\tEndereço: %s", func.endereco);
         fprintf(file, "\tIdade: %d\n", func.idade);
-        fprintf(file, "\tSalario: %.2f\n", func.salario);
+        fprintf(file, "\tSalario: R$%.2f\n", func.salario);
         fprintf(file, "\tCargo: %d\n", func.cargo);
         fprintf(file, "\t----------------------------\n\n");
     }
