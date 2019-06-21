@@ -46,4 +46,7 @@ FUNC reajustar_salario(int id, char nome[50], char endereco[100], int idade, int
 // Preenche as novas informaçoes do funcionario sem alteração do ID
 FUNC edita_funcionario(int id);
 
+// Gera arquivo txt com todos os funcionarios e suas informações ao encerrar o programa
+int cria_arquivo_funcionarios(Lista *li);
+
 

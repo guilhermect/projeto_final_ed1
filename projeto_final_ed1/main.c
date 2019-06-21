@@ -34,6 +34,7 @@ int main()
         switch(opc_menu){
             case 0:
                 printf("\nObrigado por utilizar a aplicação!\n\n");
+                cria_arquivo_funcionarios(li);
                 libera_lista(li);
                 break;
             case 1:

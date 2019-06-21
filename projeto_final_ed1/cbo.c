@@ -221,7 +221,7 @@ int remove_funcionario_id(Lista *li, int id_func){
     }else{
         ant->prox = no->prox;
     }
-    //free(li);
+    free(no);
     return 1;
 }
 
@@ -273,7 +273,7 @@ int consulta_funcionario_id(Lista *li, int id, FUNC *func){
 FUNC reajustar_salario(int id, char nome[50], char endereco[100], int idade, int cargo){
     FUNC f;
     int cod_cargo,x;
-    int porc;//Valor da porcentagem para reajuste escolhida pelo usuario
+    float porc;//Valor da porcentagem para reajuste escolhida pelo usuario
     float porcentagem;
 
     f.id=id;
@@ -285,8 +285,8 @@ FUNC reajustar_salario(int id, char nome[50], char endereco[100], int idade, int
     printf("\tDigite a porcentagem de reajuste do salario do funcionario: ");
     scanf("%d",&porc);
 
-    porcentagem = f.salario*((float)porc/100);
-    f.salario = f.salario + porcentagem;
+    //porcentagem = f.salario*((float)porc/100);
+    f.salario = porc;
 
     printf("\n\n");
     return f;
@@ -313,6 +313,37 @@ FUNC edita_funcionario(int id){
     printf("\n\n");
     return f;
 }
+
+int cria_arquivo_funcionarios(Lista *li){
+    FUNC func;
+    FILE *file;
+    file = fopen("lista_funcionarios.txt", "w");
+    if(file == NULL){
+        printf("Erro na abertura\n");
+        system("pause");
+        exit(1);
+    }
+    int i,x;
+
+    x =tamLista(li);
+    fprintf(file,"---------------- Lista de Funcionários ----------------\n\n");
+
+    for(int i=1; i<=x; i++){
+        consulta_funcionarios_orden(li, i, &func);
+
+        fprintf(file, "\t- Funcionario %d:\n",i);
+        fprintf(file, "\tID: %d\n", func.id);
+        fprintf(file, "\tNome: %s", func.nome);
+        fprintf(file, "\tEndereço: %s", func.endereco);
+        fprintf(file, "\tIdade: %d\n", func.idade);
+        fprintf(file, "\tSalario: %.2f\n", func.salario);
+        fprintf(file, "\tCargo: %d\n", func.cargo);
+        fprintf(file, "\t----------------------------\n\n");
+    }
+
+    fclose(file);
+}
+
 
 
 

@@ -1,0 +1,82 @@
+---------------- Lista de Funcionários ----------------
+
+	* Funcionario 1:
+	ID: 1
+	Nome: 1
+	Endereço: 1
+	Idade: 1
+	Salario: 1.00
+	Cargo: 1912563200
+------------------------------
+	* Funcionario 2:
+	ID: 2
+	Nome: 2
+	Endereço: 2
+	Idade: 2
+	Salario: 2.00
+	Cargo: 1912563200
+------------------------------
+	* Funcionario 3:
+	ID: 3
+	Nome: 3
+	Endereço: 3
+	Idade: 33
+	Salario: 3.00
+	Cargo: 225260
+------------------------------
+	* Funcionario 4:
+	ID: 4
+	Nome: 4
+	Endereço: 4
+	Idade: 4
+	Salario: 4.00
+	Cargo: 225260
+------------------------------
+	* Funcionario 5:
+	ID: 5
+	Nome: 5
+	Endereço: 5
+	Idade: 5
+	Salario: 5.00
+	Cargo: 225260
+------------------------------
+	* Funcionario 6:
+	ID: 6
+	Nome: 6
+	Endereço: 6
+	Idade: 6
+	Salario: 6.00
+	Cargo: 523115
+------------------------------
+	* Funcionario 7:
+	ID: 7
+	Nome: 7
+	Endereço: 7
+	Idade: 7
+	Salario: 7.00
+	Cargo: 523115
+------------------------------
+	* Funcionario 8:
+	ID: 8
+	Nome: 8
+	Endereço: 8
+	Idade: 8
+	Salario: 8.00
+	Cargo: 523115
+------------------------------
+	* Funcionario 9:
+	ID: 9
+	Nome: 9
+	Endereço: 9
+	Idade: 9
+	Salario: 9.00
+	Cargo: 262605
+------------------------------
+	* Funcionario 10:
+	ID: 10
+	Nome: 10
+	Endereço: 10
+	Idade: 10
+	Salario: 10.00
+	Cargo: 262605
+------------------------------
