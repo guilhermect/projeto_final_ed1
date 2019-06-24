@@ -3,12 +3,21 @@
 #include <stdlib.h>
 #include "cbo.h"
 
+// Elemento da estrutura funcionario
 struct elemento{
     FUNC dados;
     struct elemento *prox;
 };
 
 typedef struct elemento ELEM;
+
+// Elemento da estrutura cbo
+struct elemento_cbo{
+    CBO dados;
+    struct elemento *prox;
+};
+
+typedef struct elemento_cbo ELEM_CBO;
 
 Lista *criaLista(){
     Lista *li;
@@ -44,6 +53,19 @@ int tamLista(Lista *li){
     return acum;
 }
 
+int tamListaCBO(Lista *li){
+    if(li == NULL){
+        return 0;
+    }
+    int acum = 0;
+    ELEM_CBO *no = *li;
+    while(no != NULL){
+        acum++;
+        no = no->prox;
+    }
+    return acum;
+}
+
 int listaCheia(Lista *li){
     return 0;
 }
@@ -59,31 +81,85 @@ int listaVazia(Lista *li){
 }
 
 
-int coleta_cargo_cbo(){
-    int codigo, codigos[15]={};
-    char texto[20], cargo[20];
-    int cod_cargo;
+int insere_cbo_orden(Lista *li, CBO cargo){
+    if(li == NULL){
+        return 0;
+    }
+
+    ELEM_CBO *no = (ELEM_CBO*) malloc(sizeof(ELEM_CBO));
+
+    if(no == NULL){
+        return 0;
+    }
+
+    no->dados = cargo;
+
+    if(listaVazia(li)){
+        no->prox = (*li);
+        *li = no;
+        return 1;
+    }else{
+        ELEM_CBO *ant, *atual = *li;
+
+        while(atual != NULL && atual->dados.id < cargo.id){
+            ant = atual;
+            atual = atual->prox;
+        }
+
+        if(atual == *li){
+            no->prox = (*li);
+            *li = no;
+        }else{
+            no->prox = ant->prox;
+            ant->prox = no;
+        }
+
+        return 1;
+    }
+}
+
+
+
+int consulta_cbo_orden(Lista *li, int posicao, CBO *cargo){
+    if(li == NULL || posicao <= 0){
+        return 0;
+    }
+    ELEM_CBO *no = *li;
+    int i=1;
+    while(no != NULL && i < posicao){
+        no = no->prox;
+        i++;
+    }
+    if (no == NULL){
+        return 0;
+    }else{
+        *cargo = no->dados;
+        return 1;
+    }
+}
+
+
+int consulta_cbo_id(Lista *li, int id, CBO *cargo){
+    if(li == NULL){
+        return 0;
+    }
+    ELEM_CBO *no = *li;
+    while(no != NULL && no->dados.id != id){
+        no = no->prox;
+    }
+    if(no == NULL){
+        return 0;
+    }else{
+        *cargo = no->dados;
+        return 1;
+    }
+}
+
+CBO preenche_lista_cbo(Lista *li_cbo){
+    int codigo, id_cargo;
+    char texto[20],cargo[30];
+    CBO c;
     FILE *f;
-
-    printf("\n---------------- Lista de Cargos ----------------\n\n");
-    printf("\t1 - Neurocirurgião \n");
-    printf("\t2 - Chaveiro \n");
-    printf("\t3 - Compositor \n");
-    printf("\t4 - Advogado \n");
-    printf("\t5 - Agrônomo \n");
-    printf("\t6 - Economista \n");
-    printf("\t7 - Encanador \n");
-    printf("\t8 - Jardineiro \n");
-    printf("\t9 - Joalheiro \n");
-    printf("\t10 - Massagista \n");
-    printf("\t11 - Matemático \n");
-    printf("\t12 - Nutricionista \n");
-    printf("\t13 - Padeiro \n");
-    printf("\t14 - Radiologista \n");
-    printf("\t15 - Urbanista \n");
-
-    printf("\n\tDigite o cargo do funcionario:  ");
-    scanf("%d",&cod_cargo);
 
     f = fopen("lista_cbo.txt", "r");
     if(f == NULL){
@@ -93,21 +169,23 @@ int coleta_cargo_cbo(){
     }
 
     for(int i=0; i<15;i++){
+        fscanf(f, "%s %d",texto, &id_cargo);
+        fscanf(f, "%s %d",texto, &codigo);
+        fscanf(f, "%s %s",texto, cargo);
 
-        //fscanf(f, "%s %s", texto, cargo);
-        fscanf(f, "%s %d", texto, &codigo);
-        codigos[i]=codigo;
+        c.id=id_cargo;
+        c.codigo=codigo;
+        strcpy(c.cargo,cargo);
+
+        insere_cbo_orden(li_cbo,c);
     }
 
     fclose(f);
-    //Aqui eu subtraio o cod_cargo por 1 pois o 'for' vai de 0 a 14
-    //para pegar corretamente os codigos, assim subtraindo o valor
-    //escolhido atraves do menu por 1 ele será igual a posicao no vetor
-    return codigos[cod_cargo-1];
 }
 
-FUNC preenche_funcionario(){
+FUNC preenche_funcionario(Lista *li_cbo){
     FUNC f;
+    CBO c;
     int cod_cargo,x;
 
     printf("\nDigite o ID do funcionario: ");
@@ -121,9 +199,40 @@ FUNC preenche_funcionario(){
     scanf("%d",&f.idade);
     printf("Digite o salario do funcionario: R$");
     scanf("%f",&f.salario);
-    //Coleta codigo do cargo escolhido atraves de uma função de lê o arquivo txt,
-    //pega somente o codigo do cargo e grava no campo 'cargo'
-    f.cargo=coleta_cargo_cbo();
+
+    // Caso a opção de cargo escolhida seja menor que 1 ou maior que 15 o usuario deve digitar novamente
+    while (cod_cargo<=0 || cod_cargo>15){
+        printf("\n---------------- Lista de Cargos ----------------\n\n");
+        printf("\t1 - Neurocirurgião \n");
+        printf("\t2 - Chaveiro \n");
+        printf("\t3 - Compositor \n");
+        printf("\t4 - Advogado \n");
+        printf("\t5 - Agrônomo \n");
+        printf("\t6 - Economista \n");
+        printf("\t7 - Encanador \n");
+        printf("\t8 - Jardineiro \n");
+        printf("\t9 - Joalheiro \n");
+        printf("\t10 - Massagista \n");
+        printf("\t11 - Matemático \n");
+        printf("\t12 - Nutricionista \n");
+        printf("\t13 - Padeiro \n");
+        printf("\t14 - Radiologista \n");
+        printf("\t15 - Urbanista \n");
+
+        printf("\n\tDigite o cargo do funcionario:  ");
+        scanf("%d",&cod_cargo);
+
+        if(cod_cargo<=0 || cod_cargo>15){
+            printf("\n\n\tOpção Inválida!\n\n");
+        }
+
+    }
+
+    //Consulta o cargo da lista CBO atraves do ID
+    consulta_cbo_id(li_cbo, cod_cargo, &c);
+    //Atribui o valor do campo "codigo" da estrutura CBO ao campo cargo da estrutura FUNC
+    f.cargo=c.codigo;
+
     printf("\n\n");
     return f;
 }
@@ -199,6 +308,8 @@ int confirma_remocao_funcionario(li, id){
         }else{
             printf("\nNao foi possivel remover o funcionário");
         }
+    } else {
+        printf("Funcionário não excluído.");
     }
 
 }
@@ -274,7 +385,6 @@ FUNC reajustar_salario(int id, char nome[50], char endereco[100], int idade, flo
     FUNC f;
     int cod_cargo,x;
     float porc;//Valor da porcentagem para reajuste escolhida pelo usuario
-    float porcentagem;
 
     f.id=id;
     strcpy(f.nome, nome);
@@ -293,8 +403,9 @@ FUNC reajustar_salario(int id, char nome[50], char endereco[100], int idade, flo
 }
 
 // Preenche as novas informaçoes do funcionario sem alteração do ID
-FUNC edita_funcionario(int id){
+FUNC edita_funcionario(int id, Lista *li_cbo){
     FUNC f;
+    CBO c;
     int cod_cargo,x;
 
     f.id=id;
@@ -307,10 +418,43 @@ FUNC edita_funcionario(int id){
     scanf("%d",&f.idade);
     printf("\tDigite o salario do funcionario: R$");
     scanf("%f",&f.salario);
-    //Coleta codigo do cargo escolhido atraves de uma função de lê o arquivo txt,
-    //pega somente o codigo do cargo e grava no campo 'cargo'
-    f.cargo=coleta_cargo_cbo();
+
+    // Caso a opção de cargo escolhida seja menor que 1 ou maior que 15 o usuario deve digitar novamente
+    while (cod_cargo<=0 || cod_cargo>15){
+        printf("\n---------------- Lista de Cargos ----------------\n\n");
+        printf("\t1 - Neurocirurgião \n");
+        printf("\t2 - Chaveiro \n");
+        printf("\t3 - Compositor \n");
+        printf("\t4 - Advogado \n");
+        printf("\t5 - Agrônomo \n");
+        printf("\t6 - Economista \n");
+        printf("\t7 - Encanador \n");
+        printf("\t8 - Jardineiro \n");
+        printf("\t9 - Joalheiro \n");
+        printf("\t10 - Massagista \n");
+        printf("\t11 - Matemático \n");
+        printf("\t12 - Nutricionista \n");
+        printf("\t13 - Padeiro \n");
+        printf("\t14 - Radiologista \n");
+        printf("\t15 - Urbanista \n");
+
+        printf("\n\tDigite o cargo do funcionario:  ");
+        scanf("%d",&cod_cargo);
+
+        if(cod_cargo<=0 || cod_cargo>15){
+            printf("\n\n\tOpção Inválida!\n\n");
+        }
+
+    }
+
+    //Consulta o cargo da lista CBO atraves do ID
+    consulta_cbo_id(li_cbo, cod_cargo, &c);
+
+    //Atribui o valor do campo "codigo" da estrutura CBO ao campo cargo da estrutura FUNC
+    f.cargo=c.codigo;
+
     printf("\n\n");
+
     return f;
 }
 
@@ -332,12 +476,12 @@ int cria_arquivo_funcionarios(Lista *li){
         consulta_funcionarios_orden(li, i, &func);
 
         fprintf(file, "\t- Funcionario %d:\n",i);
-        fprintf(file, "\tID: %d\n", func.id);
-        fprintf(file, "\tNome: %s", func.nome);
-        fprintf(file, "\tEndereço: %s", func.endereco);
-        fprintf(file, "\tIdade: %d\n", func.idade);
-        fprintf(file, "\tSalario: R$%.2f\n", func.salario);
-        fprintf(file, "\tCargo: %d\n", func.cargo);
+        fprintf(file, "\t\t- ID: %d\n", func.id);
+        fprintf(file, "\t\t- Nome: %s", func.nome);
+        fprintf(file, "\t\t- Endereço: %s", func.endereco);
+        fprintf(file, "\t\t- Idade: %d\n", func.idade);
+        fprintf(file, "\t\t- Salario: R$%.2f\n", func.salario);
+        fprintf(file, "\t\t- Cargo: %d\n", func.cargo);
         fprintf(file, "\t----------------------------\n\n");
     }
 

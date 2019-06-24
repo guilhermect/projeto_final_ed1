@@ -1,44 +1,59 @@
-Cargo: Neurocirurgião
+ID: 1
 Codigo: 225260
+Cargo: Neurocirurgião
 
-Cargo: Chaveiro
+ID: 2
 Codigo: 523115
+Cargo: Chaveiro
 
-Cargo: Compositor
+ID: 3
 Codigo: 262605
+Cargo: Compositor
 
-Cargo: Advogado
+ID: 4
 Codigo: 241005
+Cargo: Advogado
 
-Cargo: Agrônomo
+ID: 5
 Codigo: 222110
+Cargo: Agrônomo
 
-Cargo: Economista
+ID: 6
 Codigo: 251205
+Cargo: Economista
 
-Cargo: Encanador
+ID: 7
 Codigo: 724110
+Cargo: Encanador
 
-Cargo: Jardineiro
+ID: 8
 Codigo: 622010
+Cargo: Jardineiro
 
-Cargo: Joalheiro
+ID: 9
 Codigo: 751010
+Cargo: Joalheiro
 
-Cargo: Massagista
+ID: 10
 Codigo: 322120
+Cargo: Massagista
 
-Cargo: Matemático
+ID: 11
 Codigo: 211115
+Cargo: Matemático
 
-Cargo: Nutricionista
+ID: 12
 Codigo: 223710
+Cargo: Nutricionista
 
-Cargo: Padeiro
+ID: 13
 Codigo: 848305
+Cargo: Padeiro
 
-Cargo: Radiologista
+ID: 14
 Codigo: 225320
+Cargo: Radiologista
 
-Cargo: Urbanista
+ID: 15
 Codigo: 214130
+Cargo: Urbanista
